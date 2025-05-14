@@ -32,11 +32,28 @@ skins = [
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', skins=skins[:4])
 
 @app.route('/catalog')
 def catalog():
     return render_template('catalog.html', skins=skins)
+
+@app.route('/dota2')
+def dota2():
+    dota2_skins = [skin for skin in skins if skin['game_id'] == 1]
+    return render_template('catalog.html', skins=dota2_skins)
+
+@app.route('/cs2')
+def cs2():
+    cs2_skins = [skin for skin in skins if skin['game_id'] == 2]
+    return render_template('catalog.html', skins=cs2_skins)
+
+@app.route('/skin/<int:skin_id>')
+def skin_detail(skin_id):
+    skin = next((skin for skin in skins if skin['id'] == skin_id), None)
+    if skin is None:
+        return "Skin not found", 404
+    return render_template('skin_detail.html', skin=skin)
 
 @app.route('/api/games')
 def get_games():
