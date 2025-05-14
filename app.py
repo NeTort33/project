@@ -7,24 +7,28 @@ app = Flask(__name__,
             template_folder='templates')
 CORS(app)
 
-# Types/Models
-class Game:
-    def __init__(self, id, name, description):
-        self.id = id
-        self.name = name
-        self.description = description
-
-class Skin:
-    def __init__(self, id, name, game_id, price, image_url):
-        self.id = id
-        self.name = name
-        self.game_id = game_id
-        self.price = price
-        self.image_url = image_url
-
 # Mock data
-games = []
-skins = []
+games = [
+    {"id": 1, "name": "Dota 2", "description": "MOBA от Valve"},
+    {"id": 2, "name": "CS2", "description": "Шутер от первого лица"}
+]
+
+skins = [
+    {
+        "id": 1,
+        "name": "Dragon Claw Hook",
+        "game_id": 1,
+        "price": 13999,
+        "image_url": "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXK9QlSPcUorA5OA1jVSvSoxNvsW1h4KEtNs6-2FAZy0PLGcHNHtIvhkdXZk_Xwa77SwWoFvsMl3rCRoImi3VDl-UNrZ2HzJ4fGclA6YV3S-lK8w-y915Ki_MOe19ZplQE"
+    },
+    {
+        "id": 2,
+        "name": "AWP Dragon Lore",
+        "game_id": 2,
+        "price": 249999,
+        "image_url": "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17P7NdTRH-t26q4SZlvD7PYTQgXtu5cB1g_zMyoD0mlOx5URuYz_7JYbBJFVqMF7U_1i-wu_vhp_u6Z_BnXs17yhx4ynZmxO3n1gSOREfqFtk"
+    }
+]
 
 @app.route('/')
 def home():
@@ -32,15 +36,15 @@ def home():
 
 @app.route('/catalog')
 def catalog():
-    return render_template('catalog.html')
+    return render_template('catalog.html', skins=skins)
 
 @app.route('/api/games')
 def get_games():
-    return jsonify([vars(game) for game in games])
+    return jsonify(games)
 
 @app.route('/api/skins')
 def get_skins():
-    return jsonify([vars(skin) for skin in skins])
+    return jsonify(skins)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
