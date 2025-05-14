@@ -1,123 +1,45 @@
-
 {% extends "base.html" %}
 
 {% block content %}
-<!-- Hero Section -->
-<div class="relative overflow-hidden bg-gradient-to-r from-dark-700 to-dark-500 rounded-xl">
-    <div class="absolute inset-0 bg-[url('https://resizer.mail.ru/p/e31ccb11-e7e2-518b-9f6b-6001d3f12580/AQAOTby79Bupy3yUWgmKme-CCIqlSKc1SnRXV4tEEl_UT2hGFrRoal_4Cqv-hFCIwckcnTvOSC0pvpZdSgN8-7wEZ7A.jpg')] bg-cover bg-center opacity-20"></div>
-    
-    <div class="relative z-10 py-16 px-8 md:py-24 md:px-12 flex flex-col items-start">
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
-            Лучшие скины <span class="text-primary-500">Dota 2</span> и <span class="text-secondary-500">CS2</span>
-        </h1>
-        
-        <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl">
-            Огромный выбор скинов по выгодным ценам. Быстрая доставка и безопасные сделки с гарантией.
-        </p>
-        
-        <a href="/catalog" class="bg-primary-500 text-white px-8 py-3 rounded-lg hover:bg-primary-600">
-            Смотреть каталог
-        </a>
+<div class="container mx-auto px-4">
+  <section class="py-12">
+    <div class="text-center">
+      <h1 class="text-4xl font-bold mb-4">Добро пожаловать в Лавку Рыжего</h1>
+      <p class="text-xl text-gray-300 mb-8">Лучшие скины для Dota 2 и CS2</p>
+      <a href="/catalog" class="bg-primary-500 text-white px-8 py-3 rounded-lg hover:bg-primary-600">
+        Перейти в каталог
+      </a>
     </div>
-</div>
+  </section>
 
-<!-- Category Section -->
-<div class="py-10">
-    <h2 class="text-2xl font-bold text-white mb-6">Категории игр</h2>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Dota 2 -->
-        <a href="/dota2" class="group">
-            <div class="relative h-64 rounded-xl overflow-hidden">
-                <div class="absolute inset-0 bg-[url('https://th.bing.com/th/id/R.d1b79b5af17baa2c723fe72bf9562b18?rik=yK2YZHzpCFYS6A&riu=http%3a%2f%2fwww.techreviewer.co.uk%2fwp-content%2fuploads%2f2014%2f02%2fDota2.jpg&ehk=P7zVtaukw8Xe5RiImUCOMgN0yJni%2fPxfii4Ejg26cXw%3d&risl=&pid=ImgRaw&r=0')] bg-cover bg-center group-hover:scale-110 transition-transform duration-500"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-dark-900 to-transparent"></div>
-                
-                <div class="absolute bottom-0 left-0 p-6">
-                    <div class="flex items-center">
-                        <div class="p-3 bg-dark-600 rounded-full mr-4">
-                            <span class="text-primary-500">⚔️</span>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-white">Dota 2</h3>
-                            <p class="text-gray-300">Лучшие предметы для героев</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        
-        <!-- CS2 -->
-        <a href="/cs2" class="group">
-            <div class="relative h-64 rounded-xl overflow-hidden">
-                <div class="absolute inset-0 bg-[url('https://tse2.mm.bing.net/th/id/OIP.xPQizy-z1bLAK3EtCSy_8wHaEK?cb=iwc1&rs=1&pid=ImgDetMain')] bg-cover bg-center group-hover:scale-110 transition-transform duration-500"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-dark-900 to-transparent"></div>
-                
-                <div class="absolute bottom-0 left-0 p-6">
-                    <div class="flex items-center">
-                        <div class="p-3 bg-dark-600 rounded-full mr-4">
-                            <span class="text-secondary-500">🎯</span>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-white">CS2</h3>
-                            <p class="text-gray-300">Редкие скины оружия и ножей</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
-</div>
-
-<!-- Featured Skins -->
-<div class="py-10">
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-white">Рекомендуемые товары</h2>
-        <a href="/catalog" class="text-primary-500 hover:text-primary-400 text-sm">
-            Смотреть все →
-        </a>
-    </div>
-    
+  <section class="py-12">
+    <h2 class="text-2xl font-bold mb-6">Популярные предметы</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {% for skin in skins %}
-        <div class="bg-dark-400 rounded-lg overflow-hidden shadow-card hover:shadow-hover transition-shadow">
-            <img src="{{ skin.image_url }}" alt="{{ skin.name }}" class="w-full h-48 object-cover">
-            <div class="p-4">
-                <h3 class="text-lg font-semibold mb-2">{{ skin.name }}</h3>
-                <p class="text-primary-500 font-bold">{{ skin.price }} ₽</p>
-            </div>
+      {% for skin in featured_skins %}
+      <div class="bg-dark-400 rounded-lg overflow-hidden shadow-card hover:shadow-hover transition-shadow">
+        <div class="aspect-w-16 aspect-h-9 relative">
+          <img src="{{ skin.image_url }}" alt="{{ skin.name }}" class="w-full h-48 object-cover">
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-dark-600 to-transparent p-2">
+            <span class="inline-block text-xs px-2 py-1 bg-dark-500 rounded text-white">
+              {{ "Dota 2" if skin.game_id == "1" else "CS2" }}
+            </span>
+          </div>
         </div>
-        {% endfor %}
+        <div class="p-4">
+          <h3 class="text-lg font-medium text-white truncate">{{ skin.name }}</h3>
+          <div class="flex items-center text-sm text-gray-400 mt-1 mb-3">
+            <span>{{ skin.type }}</span>
+            {% if skin.hero %}
+            <span class="ml-1 before:content-['•'] before:mx-1">{{ skin.hero }}</span>
+            {% endif %}
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-lg font-bold text-white">{{ skin.price }} ₽</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
-</div>
-
-<!-- Why Choose Us -->
-<div class="py-10">
-    <h2 class="text-2xl font-bold text-white mb-6 text-center">Почему выбирают нас</h2>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-dark-400 rounded-lg p-6 text-center">
-            <div class="w-12 h-12 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span class="text-primary-500 text-2xl">🔒</span>
-            </div>
-            <h3 class="text-lg font-medium text-white mb-2">Безопасные сделки</h3>
-            <p class="text-gray-400 text-sm">Гарантия безопасности при каждой покупке и защищенные платежи.</p>
-        </div>
-        
-        <div class="bg-dark-400 rounded-lg p-6 text-center">
-            <div class="w-12 h-12 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span class="text-primary-500 text-2xl">⚡</span>
-            </div>
-            <h3 class="text-lg font-medium text-white mb-2">Быстрая доставка</h3>
-            <p class="text-gray-400 text-sm">Получайте скины мгновенно после оплаты, без задержек.</p>
-        </div>
-        
-        <div class="bg-dark-400 rounded-lg p-6 text-center">
-            <div class="w-12 h-12 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span class="text-primary-500 text-2xl">💰</span>
-            </div>
-            <h3 class="text-lg font-medium text-white mb-2">Выгодные цены</h3>
-            <p class="text-gray-400 text-sm">Конкурентные цены и регулярные скидки на популярные предметы.</p>
-        </div>
-    </div>
+  </section>
 </div>
 {% endblock %}
