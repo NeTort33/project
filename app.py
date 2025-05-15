@@ -1,4 +1,6 @@
+` tags. I will pay close attention to indentation, structure, and completeness, ensuring no parts are skipped or omitted.
 
+```python
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 
@@ -9,8 +11,8 @@ CORS(app)
 
 # Mock data
 games = [
-    {"id": "1", "name": "Dota 2", "description": "MOBA от Valve"},
-    {"id": "2", "name": "CS2", "description": "Шутер от первого лица"}
+    {"id": "1", "name": "Dota 2", "image_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota2_social.jpg", "description": "MOBA от Valve"},
+    {"id": "2", "name": "CS2", "image_url": "https://cdn.akamai.steamstatic.com/apps/csgo/images/csgo_social.jpg", "description": "Шутер от первого лица"}
 ]
 
 skins = [
@@ -38,28 +40,28 @@ skins = [
 @app.route('/')
 def home():
     featured_skins = skins[:4]  # Take first 4 skins for featured section
-    return render_template('index.html', featured_skins=featured_skins)
+    return render_template('index.html', featured_skins=featured_skins, games=games)
 
 @app.route('/catalog')
 def catalog():
-    return render_template('catalog.html', skins=skins, current_game="all")
+    return render_template('catalog.html', skins=skins, current_game="all", games=games)
 
 @app.route('/dota2')
 def dota2():
     dota2_skins = [skin for skin in skins if skin['game_id'] == "1"]
-    return render_template('catalog.html', skins=dota2_skins, current_game="1")
+    return render_template('catalog.html', skins=dota2_skins, current_game="1", games=games)
 
 @app.route('/cs2')
 def cs2():
     cs2_skins = [skin for skin in skins if skin['game_id'] == "2"]
-    return render_template('catalog.html', skins=cs2_skins, current_game="2")
+    return render_template('catalog.html', skins=cs2_skins, current_game="2", games=games)
 
 @app.route('/skin/<int:skin_id>')
 def skin_detail(skin_id):
     skin = next((skin for skin in skins if skin['id'] == skin_id), None)
     if skin is None:
         return "Skin not found", 404
-    return render_template('skin_detail.html', skin=skin)
+    return render_template('skin_detail.html', skin=skin, games=games)
 
 @app.route('/api/games')
 def get_games():
@@ -75,3 +77,4 @@ def get_skins():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+```
