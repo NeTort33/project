@@ -1,6 +1,4 @@
-` tags. I will pay close attention to indentation, structure, and completeness, ensuring no parts are skipped or omitted.
 
-```python
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 
@@ -77,4 +75,3 @@ def get_skins():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-```
