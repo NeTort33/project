@@ -7,7 +7,6 @@ app = Flask(__name__,
             template_folder='templates')
 CORS(app)
 
-# Mock data
 games = [
     {"id": "1", "name": "Dota 2", "image_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota2_social.jpg", "description": "MOBA от Valve"},
     {"id": "2", "name": "CS2", "image_url": "https://cdn.akamai.steamstatic.com/apps/csgo/images/csgo_social.jpg", "description": "Шутер от первого лица"}
@@ -47,33 +46,31 @@ skins = [
 
 @app.route('/')
 def home():
-    featured_skins = skins[:4]  # Take first 4 skins for featured section
+    featured_skins = skins[:4]
     return render_template('index.html', featured_skins=featured_skins, games=games)
 
 @app.route('/catalog')
 def catalog():
-    return render_template('catalog.html', skins=skins, current_game="all", games=games)
-
-@app.route('/dota2')
-def dota2():
-    dota2_skins = [skin for skin in skins if skin['game_id'] == "1"]
-    return render_template('catalog.html', skins=dota2_skins, current_game="1", games=games)
-
-@app.route('/cs2')
-def cs2():
-    cs2_skins = [skin for skin in skins if skin['game_id'] == "2"]
-    return render_template('catalog.html', skins=cs2_skins, current_game="2", games=games)
-
-@app.route('/skin/<int:skin_id>')
-def skin_detail(skin_id):
-    skin = next((skin for skin in skins if skin['id'] == skin_id), None)
-    if skin is None:
-        return "Skin not found", 404
-    return render_template('skin_detail.html', skin=skin, games=games)
-
-@app.route('/api/games')
-def get_games():
-    return jsonify(games)
+    game_id = request.args.get('game', 'all')
+    search = request.args.get('search', '').lower()
+    min_price = request.args.get('min_price', type=float)
+    max_price = request.args.get('max_price', type=float)
+    
+    filtered_skins = skins
+    
+    if game_id != 'all':
+        filtered_skins = [s for s in filtered_skins if s['game_id'] == game_id]
+    
+    if search:
+        filtered_skins = [s for s in filtered_skins if search in s['name'].lower()]
+    
+    if min_price is not None:
+        filtered_skins = [s for s in filtered_skins if s['price'] >= min_price]
+    
+    if max_price is not None:
+        filtered_skins = [s for s in filtered_skins if s['price'] <= max_price]
+    
+    return render_template('catalog.html', skins=filtered_skins, current_game=game_id, games=games)
 
 @app.route('/api/skins')
 def get_skins():
