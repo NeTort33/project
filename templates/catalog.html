@@ -3,7 +3,50 @@
 
 {% block content %}
 <div class="container mx-auto px-4">
-  <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-white mb-6 text-center">
+      {% if current_game == "1" %}
+        Скины Dota 2
+      {% elif current_game == "2" %}
+        Скины CS2
+      {% else %}
+        Каталог скинов
+      {% endif %}
+    </h1>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <!-- Filters -->
+      <div class="hidden lg:block space-y-6">
+        <div class="bg-dark-400 rounded-lg p-4">
+          <h3 class="text-lg font-medium text-white mb-3">Игры</h3>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input type="radio" name="game" value="all" {% if current_game == 'all' %}checked{% endif %} class="mr-2">
+              <span class="text-gray-300">Все игры</span>
+            </label>
+            {% for game in games %}
+            <label class="flex items-center">
+              <input type="radio" name="game" value="{{ game.id }}" {% if current_game == game.id %}checked{% endif %} class="mr-2">
+              <span class="text-gray-300">{{ game.name }}</span>
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+        
+        <div class="bg-dark-400 rounded-lg p-4">
+          <h3 class="text-lg font-medium text-white mb-3">Цена</h3>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="number" placeholder="От" class="w-full px-3 py-2 bg-dark-300 rounded text-white">
+            <input type="number" placeholder="До" class="w-full px-3 py-2 bg-dark-300 rounded text-white">
+          </div>
+          <button class="w-full mt-3 px-4 py-2 bg-primary-500 text-white rounded hover:bg-primary-600">
+            Применить
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="lg:col-span-3">
     <h1 class="text-2xl font-bold mb-4 md:mb-0">
       {% if current_game == "1" %}
         Скины Dota 2

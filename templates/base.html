@@ -1,32 +1,18 @@
-
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лавка Рыжего - Магазин скинов Dota 2 и CS2</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'dark-300': '#2A2A2A',
-                        'dark-400': '#1F1F1F',
-                        'dark-500': '#141414',
-                        'dark-600': '#0A0A0A',
-                        'primary-400': '#FF6B6B',
-                        'primary-500': '#FF5252',
-                        'primary-600': '#FF3838',
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
 <body class="bg-dark-500 text-white">
-    <header class="sticky top-0 z-50 bg-dark-500 border-b border-dark-300">
+    <header class="bg-dark-400 border-b border-dark-300">
         <nav class="container mx-auto px-4 py-3">
             <div class="flex items-center justify-between">
                 <a href="/" class="text-primary-500 font-bold text-2xl">Лавка Рыжего</a>
@@ -64,7 +50,7 @@
     <script>
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
-        
+
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
