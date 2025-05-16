@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 
@@ -6,6 +7,7 @@ app = Flask(__name__,
             template_folder='templates')
 CORS(app)
 
+# Mock data
 games = [
     {"id": "1", "name": "Dota 2", "image_url": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota2_social.jpg", "description": "MOBA от Valve"},
     {"id": "2", "name": "CS2", "image_url": "https://cdn.akamai.steamstatic.com/apps/csgo/images/csgo_social.jpg", "description": "Шутер от первого лица"}
@@ -30,22 +32,12 @@ skins = [
         "type": "AWP",
         "rarity": "Covert",
         "image_url": "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17P7NdTRH-t26q4SZlvD7PYTQgXtu5cB1g_zMyoD0mlOx5URuYz_7JYbBJFVqMF7U_1i-wu_vhp_u6Z_BnXs17yhx4ynZmxO3n1gSOREfqFtk"
-    },
-    {
-        "id": 3,
-        "name": "Arcana Shadow Fiend",
-        "game_id": "1",
-        "price": 29999,
-        "type": "Arcana",
-        "hero": "Shadow Fiend",
-        "rarity": "Arcana",
-        "image_url": "https://community.cloudflare.steamstatic.com/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXK9QlSPcUorA5OA1jVSvSoxNvsW1h4KEtNs6-2FAZy0PLGcHNHtIvhkdXZk_Xwa77SwWoFvsMl3rCRoImi3VDl-UNrZ2HzJ4fGclA6YV3S-lK8w-y915Ki_MOe19ZplQE"
     }
 ]
 
 @app.route('/')
 def home():
-    featured_skins = skins[:4]  
+    featured_skins = skins[:4]  # Take first 4 skins for featured section
     return render_template('index.html', featured_skins=featured_skins, games=games)
 
 @app.route('/catalog')
