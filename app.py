@@ -49,9 +49,18 @@ def home():
     featured_skins = skins[:4]
     return render_template('index.html', featured_skins=featured_skins, games=games)
 
+@app.route('/dota2')
+def dota2():
+    return catalog(game_id="1")
+
+@app.route('/cs2')
+def cs2():
+    return catalog(game_id="2")
+
 @app.route('/catalog')
-def catalog():
-    game_id = request.args.get('game', 'all')
+def catalog(game_id=None):
+    if game_id is None:
+        game_id = request.args.get('game', 'all')
     search = request.args.get('search', '').lower()
     min_price = request.args.get('min_price', type=float)
     max_price = request.args.get('max_price', type=float)

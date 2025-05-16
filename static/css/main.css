@@ -1,6 +1,29 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+/* Reset and base styles */
+*, :before, :after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: #e5e7eb;
+    --tw-border-spacing-x: 0;
+    --tw-border-spacing-y: 0;
+    --tw-translate-x: 0;
+    --tw-translate-y: 0;
+    --tw-rotate: 0;
+    --tw-skew-x: 0;
+    --tw-skew-y: 0;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+}
+
+body {
+    margin: 0;
+    line-height: inherit;
+    font-family: Inter, system-ui, sans-serif;
+}
+
 /* Custom styles */
 .shadow-card {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
